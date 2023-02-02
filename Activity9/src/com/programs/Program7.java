@@ -9,7 +9,7 @@ public class Program7 {
 	        
 	        for(int i=0;i<array1.length;i++) {
 	            
-	            String s2="";
+	            String s2=" ";
 	            
 	            for(int j=(array1[i].length())-1;j>=0;j--) {
 	                
@@ -21,7 +21,7 @@ public class Program7 {
 	        }
 	        
 	        System.out.println(count);        
-	        
+	                                                                                                                                   
 	        }
 	    }
 

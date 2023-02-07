@@ -1,0 +1,119 @@
+// creating Students information table
+> create table Students(registration_no int primary key
+,name varchar(50)
+,branch varchar(50)
+,contact_no varchar(50)
+,Dob Date,date_of_join Date
+,address varchar(50)
+,email_id varchar(50));
++-----------------+-------------+------+-----+---------+-------+
+| Field           | Type        | Null | Key | Default | Extra |
++-----------------+-------------+------+-----+---------+-------+
+| registration_no | int         | NO   | PRI | NULL    |       |
+| name            | varchar(50) | YES  |     | NULL    |       |
+| branch          | varchar(50) | YES  |     | NULL    |       |
+| contact_no      | varchar(50) | YES  |     | NULL    |       |
+| Dob             | date        | YES  |     | NULL    |       |
+| date_of_join    | date        | YES  |     | NULL    |       |
+| address         | varchar(50) | YES  |     | NULL    |       |
+| email_id        | varchar(50) | YES  |     | NULL    |       |
++-----------------+-------------+------+-----+---------+-------+
+
+
+// creating Subject table
+create table subject(sub_code varchar(5) primary key ,
+sub_1 int (10)sub_2 int (10),
+sub_3 int(10),
+sem int (5),
+reg_no int,
+foreign key(reg_no) references Students(registration_no));
++----------+------------+------+-----+---------+-------+
+| Field    | Type       | Null | Key | Default | Extra |
++----------+------------+------+-----+---------+-------+
+| sub_code | varchar(5) | NO   | PRI | NULL    |       |
+| sub_1    | int        | YES  |     | NULL    |       |
+| sub_2    | int        | YES  |     | NULL    |       |
+| sub_3    | int        | YES  |     | NULL    |       |
+| sem      | int        | YES  |     | NULL    |       |
+| reg_no   | int        | YES  | MUL | NULL    |       |
++----------+------------+------+-----+---------+-------+
+
+// adding details to Student table
+ insert into Students(registration_no,name,
+branch,contact_no,dob,
+date_of_join,address,email_id) values(111,'rohit',
+'computer science','9688959587',
+'2003-01-01',
+'2023-01-25',
+'pune' 
+,'rohit123@gmail.com');
++-----------------+-------+------------------+------------+------------+--------------+---------+--------------------+
+| registration_no | name  | branch           | contact_no | Dob        | date_of_join | address | email_id           |
++-----------------+-------+------------------+------------+------------+--------------+---------+--------------------+
+|             111 | rohit | computer science | 9688959587 | 2003-01-01 | 2023-01-25   | pune    | rohit123@gmail.com |
++-----------------+-------+------------------+------------+------------+--------------+---------+--------------------+
+
+//adding details to Subject tables
+ insert into Subject values('A',76,89,84,5,111);
++----------+-------+-------+-------+------+--------+
+| sub_code | sub_1 | sub_2 | sub_3 | sem  | reg_no |
++----------+-------+-------+-------+------+--------+
+| A        |    76 |    89 |    84 |    5 |    111 |
++----------+-------+-------+-------+------+--------+
+
+
+// to calculate sum of subjects
+select sub_code, sum(sub_1 +sub_2+sub_3) as total_marks from Subject group by sub_code;
++----------+-------------+
+| sub_code | total_marks |
++----------+-------------+
+| A        |         249 |
+| B        |         254 |
+| C        |         235 |
+| D        |         236 |
+| E        |         249 |
++----------+-------------+
+// to calculate average
+select sub_code,(sub_1+sub_2+sub_3)/3 as average from Subject GROUP BY sub_code;
++----------+---------+
+| sub_code | average |
++----------+---------+
+| A        | 83.0000 |
+| B        | 84.6667 |
+| C        | 78.3333 |
+| D        | 78.6667 |
+| E        | 83.0000 |
++----------+---------+
+5 rows in set (0.00 sec)
+
+// to calculate the percentage
+select sub_code,((sub_1+sub_2+sub_3)/300)*100 as percentage from Subject GROUP BY sub_code;
++----------+------------+
+| sub_code | percentage |
++----------+------------+
+| A        |    83.0000 |
+| B        |    84.6667 |
+| C        |    78.3333 |
+| D        |    78.6667 |
+| E        |    83.0000 |
++----------+------------+
+
+
+ // displaying students information
+
+SELECT students.name, subject.sem, subject.sub_code, ((subject.sub_1 + subject.sub_2 + subject.sub_3) / 300) * 100 AS percentage, students.branch
+  FROM students
+  INNER JOIN subject  ON students.registration_no = subject.reg_no;
++--------+------+----------+------------+------------------+
+| name   | sem  | sub_code | percentage | branch           |
++--------+------+----------+------------+------------------+
+| rohit  |    5 | A        |    83.0000 | computer science |
+| ram    |    5 | B        |    84.6667 | Bca              |
+| aniket |    4 | C        |    78.3333 | Bsc              |
+| raman  |    5 | D        |    78.6667 | B-com            |
+| sachin |    6 | E        |    83.0000 |  D-pharmicy      |
++--------+------+----------+------------+------------------+
+
+
+
+
